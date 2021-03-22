@@ -1,0 +1,31 @@
+<ui:composition 
+    template="../template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:b="http://bootsfaces.net/ui">
+    <ui:define name="content">
+        <h:form id="fmrCliente">
+            <p:messages id="mensaje"></p:messages>
+            <b:panel title="Nuevo Tipo Cliente">
+                <b:panelGrid columns="2">
+                    <p:outputLabel value="Tipo Cliente"></p:outputLabel>
+                    <p:inputText value="#{tipoClienteControl.tipoCliente.nombreTipoCliente}"></p:inputText>
+                    <p:commandButton value="Guardar" action="#{tipoClienteControl.guardar()}" update="@form"></p:commandButton>
+                </b:panelGrid>
+            </b:panel>
+            <b:panel title="Lista Tipo Cliente">
+                <p:dataTable value="#{tipoClienteControl.listaTipoCliente}" var="tc">
+                    <p:column headerText="Tipo Cliente">
+                        <p:outputLabel value="#{tc.nombreTipoCliente}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Actualizar">
+                        <p:commandButton value="Actualizar" action="#{tipoClienteControl.actualizar(tc)}" update="@form" process="@this"></p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </b:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

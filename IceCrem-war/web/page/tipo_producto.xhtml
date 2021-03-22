@@ -1,0 +1,46 @@
+<ui:composition 
+    template="../template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:b="http://bootsfaces.net/ui">
+    <ui:define name="content">
+        <h:form id="frmTipoProducto">
+            
+           <p:messages id="mensaje"></p:messages>
+           
+           <b:panel id="pnlTipoProducto" title="Nuevo Tipo Producto">
+               <b:panelGrid columns="2">
+                   <p:outputLabel value="Nombre"></p:outputLabel>
+                   <p:inputText value="#{tipoProductoControl.tipoProducto.nombreTipoProducto}"></p:inputText>
+                   <p:outputLabel value="Descripcion"></p:outputLabel>
+                   <p:inputText value="#{tipoProductoControl.tipoProducto.descripcionTipoProducto}"></p:inputText>
+                   <p:outputLabel value="Estado"></p:outputLabel>
+                   <p:selectBooleanCheckbox value="#{tipoProductoControl.tipoProducto.estadoTipoProducto}"></p:selectBooleanCheckbox>
+                   <p:commandButton value="Guardar" styleClass="rounded-button" action="#{tipoProductoControl.guardar()}" update="frmTipoProducto"></p:commandButton>
+               </b:panelGrid>
+           </b:panel>
+           
+           <p:panel header="Lista de Tipo Producto">
+               <p:dataTable value="#{tipoProductoControl.listaTipoProducto}" var="tp">
+                   <p:column headerText="Nombre">
+                       <p:outputLabel value="#{tp.nombreTipoProducto}"></p:outputLabel>
+                    </p:column>
+                   <p:column headerText="Descripción">
+                       <p:outputLabel value="#{tp.descripcionTipoProducto}"></p:outputLabel>
+                    </p:column>
+                   <p:column headerText="Estado">
+                       <p:outputLabel value="#{tp.estadoTipoProducto}"></p:outputLabel>
+                    </p:column>
+                   <p:column headerText="Actualizar">
+                       <p:commandButton value="Actualizar" styleClass="rounded-button" action="#{tipoProductoControl.seleccionarTipoProducto(tp)}" update="@form" process="@this"></p:commandButton>
+                    </p:column>
+               </p:dataTable>
+           </p:panel>
+           
+        </h:form>
+    </ui:define>
+        
+</ui:composition>

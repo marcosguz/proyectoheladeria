@@ -1,0 +1,36 @@
+<ui:composition 
+    template="../template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:b="http://bootsfaces.net/ui">
+    <ui:define name="content">
+        <h:form id="frmDetalleBodega">
+            <p:messages id="msg" />
+            <b:panel title="Detalle de Bodega">
+                <p:dataTable value="#{detalleBodegaControl.listaDetalleBodega}" var="detalleBodega">
+                    <p:column headerText="Fecha de Ingreso Producto">
+                        <p:outputLabel value="#{detalleBodega.idBodega.fechaIngresoProducto}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Nombre Producto">
+                        <p:outputLabel value="#{detalleBodega.idBodega.nombreProducto}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Valor Inicial Producto">
+                        <p:outputLabel value="#{detalleBodega.idDetalleFactura.idProducto.precioUnitario}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Stock Inicial">
+                        <p:outputLabel value="#{detalleBodega.idBodega.cantidadProducto}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Cantidad Venta Producto">
+                        <p:outputLabel value="#{detalleBodega.idDetalleFactura.cantidad}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Total Productos">
+                        <p:outputLabel value=""></p:outputLabel>
+                    </p:column>
+                </p:dataTable>
+            </b:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

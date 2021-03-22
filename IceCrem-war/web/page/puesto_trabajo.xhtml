@@ -1,0 +1,41 @@
+<ui:composition 
+    template="../template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:b="http://bootsfaces.net/ui">
+    <ui:define name="content">
+        <h:form id="fmrPuestoTrabajo">
+            <p:messages id="mensaje"></p:messages>
+            <b:panel title="Nuevo Puesto trabajo">
+                <b:panelGrid columns="2">
+                    <p:outputLabel value="Nombre del puesto de trabajo"></p:outputLabel>
+                    <p:inputText value="#{puestoTrabajoControl.puestoTrabajo.nombrePuestoTrabajo}"></p:inputText>
+                    <p:outputLabel value="Descripción del puesto de trabajo"></p:outputLabel>
+                    <p:inputText value="#{puestoTrabajoControl.puestoTrabajo.descripcionPuestoTrabajo}"></p:inputText>
+                    <p:outputLabel value="Estado del puesto de trabajo"></p:outputLabel>
+                    <p:selectBooleanCheckbox value="#{puestoTrabajoControl.puestoTrabajo.estadoPuestoTrabajo}"></p:selectBooleanCheckbox>
+                    <p:commandButton value="Guardar" action="#{puestoTrabajoControl.guardar()}" update="@form"></p:commandButton>
+                </b:panelGrid>
+            </b:panel>
+            <b:panel title="Lista Puesto Trabajo">
+                <p:dataTable value="#{puestoTrabajoControl.listaPuestoTrabajo}" var="pt">
+                    <p:column headerText="Nombre del puesto de trabajo">
+                        <p:outputLabel value="#{pt.nombrePuestoTrabajo}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Descripción del puesto de trabajo">
+                        <p:outputLabel value="#{pt.descripcionPuestoTrabajo}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Estado del puesto de trabajo">
+                        <p:outputLabel value="#{pt.estadoPuestoTrabajo}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Actualizar">
+                        <p:commandButton value="Actualizar" action="#{puestoTrabajoControl.actualizar(pt)}" update="@form" process="@this"></p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </b:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,64 @@
+<ui:composition 
+    template="../template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:b="http://bootsfaces.net/ui">
+    <ui:define name="content">
+        <h:form id="frmCliente">
+            <p:messages id="mensaje"></p:messages>
+            <b:panel id="bnlCliente" title="Nuevo Cliente">
+                <b:panelGrid columns="2">
+                    <p:outputLabel value="Cédula"></p:outputLabel>
+                    <p:inputText value="#{clienteControl.cliente.idPersona.cedula}"></p:inputText>
+                    <p:outputLabel value="Nombre"></p:outputLabel>
+                    <p:inputText value="#{clienteControl.cliente.idPersona.nombre}"></p:inputText>
+                    <p:outputLabel value="Apellido"></p:outputLabel>
+                    <p:inputText value="#{clienteControl.cliente.idPersona.apellido}"></p:inputText>
+                    <p:outputLabel value="Teléfono"></p:outputLabel>
+                    <p:inputText value="#{clienteControl.cliente.idPersona.telefono}"></p:inputText>
+                    <p:outputLabel value="Email"></p:outputLabel>
+                    <p:inputText value="#{clienteControl.cliente.idPersona.email}"></p:inputText>
+                    <p:outputLabel value="Tipo Cliente"></p:outputLabel>
+                    <p:selectOneMenu id="optionTipoCliente" value="#{clienteControl.idTipoCliente}">
+                        <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                        <f:selectItems value="#{clienteControl.selectItemTipoCliente}" var="item" itemValue="#{item.value}" itemLabel="#{item.label}"></f:selectItems>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Número Visitas"></p:outputLabel>
+                    <p:inputText value="#{clienteControl.cliente.numeroVisitas}"></p:inputText>
+                    <p:outputLabel value="Estado Cliente"></p:outputLabel>
+                    <p:selectBooleanCheckbox value="#{clienteControl.cliente.estadoCliente}"></p:selectBooleanCheckbox>
+
+                    <p:commandButton value="Guardar" action="#{clienteControl.guardar()}" update="@form"></p:commandButton>
+                </b:panelGrid>
+            </b:panel>
+            <b:panel title="Lista Clientes">
+                <p:dataTable value="#{clienteControl.listaCliente}" var="cliente">
+                    <p:column headerText="Cedula">
+                        <p:outputLabel value="#{cliente.idPersona.cedula}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <p:outputLabel value="#{cliente.idPersona.nombre}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Apellido">
+                        <p:outputLabel value="#{cliente.idPersona.apellido}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Tipo Cliente">
+                        <p:outputLabel value="#{cliente.idTipoCliente.nombreTipoCliente}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Número Visita">
+                        <p:outputLabel value="#{cliente.numeroVisitas}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Estado Cliente">
+                        <p:outputLabel value="#{cliente.estadoCliente}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Actualizar">
+                        <p:commandButton value="Actualizar" action="#{clienteControl.actualizar(cliente)}" process="@this" update="@form"></p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </b:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

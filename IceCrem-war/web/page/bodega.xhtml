@@ -1,0 +1,69 @@
+<ui:composition 
+    template="../template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:b="http://bootsfaces.net/ui">
+    <ui:define name="content">
+        <h:form id="fmrBodega">
+            <p:messages id="mensaje"></p:messages>
+            <b:panel title="Bodega">
+                <b:panelGrid columns="2">
+                    <p:outputLabel value="Empleado"></p:outputLabel>
+                    <b:selectOneMenu id="somEmpleado" value="#{bodegaControl.idEmpleado}" required="true" >
+                        <f:selectItem itemValue="" itemLabel="Seleccione" />
+                        <f:selectItems value="#{bodegaControl.listaItemsEmpleado}" var="empleados" itemValue="#{empleados.value}" itemLabel="#{empleados.label}"/>
+                    </b:selectOneMenu>
+                    <p:outputLabel value="Proveedor"></p:outputLabel>
+                    <b:selectOneMenu id="somProveedor" value="#{bodegaControl.idProveedor}" required="true" >
+                        <f:selectItem itemValue="" itemLabel="Seleccione" />
+                        <f:selectItems value="#{bodegaControl.listaItemsProveedor}" var="provedores" itemValue="#{provedores.value}" itemLabel="#{provedores.label}"/>
+                    </b:selectOneMenu>
+                    <p:outputLabel value="Empresa"></p:outputLabel>
+                    <b:selectOneMenu id="somEmpresa" value="#{bodegaControl.idProveedor}" required="true" >
+                        <f:selectItem itemValue="" itemLabel="Seleccione" />
+                        <f:selectItems value="#{bodegaControl.listaItemsEmpresa}" var="empresas" itemValue="#{empresas.value}" itemLabel="#{empresas.label}"/>
+                    </b:selectOneMenu>
+                    <p:outputLabel value="Nombre Producto"></p:outputLabel>
+                    <p:inputText value="#{bodegaControl.bodega.nombreProducto}"></p:inputText>
+                    <p:outputLabel value="Cantidad Producto"></p:outputLabel>
+                    <p:inputText value="#{bodegaControl.bodega.cantidadProducto}"></p:inputText>
+                    <p:outputLabel value="Fecha Ingreso Producto"></p:outputLabel>
+                    <p:calendar id="cldFechaInicio" value="#{bodegaControl.bodega.fechaIngresoProducto}" showOn="button" 
+                                mindate="today" pattern="yyyy-mm-dd" />
+                    <p:commandButton value="Guardar" action="#{bodegaControl.guardar()}" update="@form"></p:commandButton>
+                </b:panelGrid>
+            </b:panel>
+            <b:panel title="Lista">
+                <p:dataTable value="#{bodegaControl.listaBodega}" var="bodega">
+                    <p:column headerText="Nombre Empleado">
+                        <p:outputLabel value="#{bodega.idEmpleado.idPersona.nombre}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Apellido Empleado">
+                        <p:outputLabel value="#{bodega.idEmpleado.idPersona.apellido}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Nombre Proveedor">
+                        <p:outputLabel value="#{bodega.idProveedor.idPersona.nombre}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Apellido Proveedor">
+                        <p:outputLabel value="#{bodega.idProveedor.idPersona.apellido}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Nombre Producto">
+                        <p:outputLabel value="#{bodega.nombreProducto}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Cantidad Producto">
+                        <p:outputLabel value="#{bodega.cantidadProducto}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Fecha Ingreso Producto">
+                        <p:outputLabel value="#{bodega.fechaIngresoProducto}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Actualizar">
+                        <p:commandButton value="Actualizar" action="#{bodegaControl.actualizar(bodega)}" update="@form" process="@this"></p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </b:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

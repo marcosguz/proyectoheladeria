@@ -1,0 +1,89 @@
+<ui:composition 
+    template="../template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:b="http://bootsfaces.net/ui">
+    <ui:define name="content">
+        <h:form id="frmVentas">
+            <p:messages id="msg" />
+            <b:container>
+                <b:panel title="Empleado">
+                    <b:panelGrid columns="3">
+                        <p:outputLabel value="Empleado"></p:outputLabel>
+                        <p:selectOneMenu id="optionEmpleado" value="#{detalleFacturaControl.idEmpleado}">
+                            <f:selectItem itemLabel="Atendido por...." itemValue=""/>
+                            <f:selectItems value="#{detalleFacturaControl.selectItemEmpleado}"></f:selectItems>
+                        </p:selectOneMenu>
+                        <p:commandButton value="Pagar" action="#{detalleFacturaControl.guardar()}"></p:commandButton>
+                    </b:panelGrid>
+                </b:panel>
+
+                <b:panel title="Cliente">
+                    <b:panelGrid columns="2">
+                        <p:outputLabel value="Cédula"></p:outputLabel>
+                        <p:inputText value="#{detalleFacturaControl.persona.cedula}"></p:inputText>
+                        <p:outputLabel value="Nombre"></p:outputLabel>
+                        <p:inputText value="#{detalleFacturaControl.persona.nombre}"></p:inputText>
+                        <p:outputLabel value="Apellido"></p:outputLabel>
+                        <p:inputText value="#{detalleFacturaControl.persona.apellido}"></p:inputText>
+                        <p:outputLabel value="Teléfono"></p:outputLabel>
+                        <p:inputText value="#{detalleFacturaControl.persona.telefono}"></p:inputText>
+                        <p:outputLabel value="Email"></p:outputLabel>
+                        <p:inputText value="#{detalleFacturaControl.persona.email}"></p:inputText>
+                        <p:commandButton value="Añadir Cliente" rendered="false"></p:commandButton>
+                    </b:panelGrid>
+                </b:panel>
+
+                <b:panel title="Productos">
+                    <b:panelGrid columns="2">
+                        <p:outputLabel value="Producto"></p:outputLabel>
+                        <p:selectOneMenu id="optionProducto" value="#{detalleFacturaControl.idProducto}">
+                            <f:selectItem itemLabel="Seleccione Producto" itemValue=""/>
+                            <f:selectItems value="#{detalleFacturaControl.selectItemProducto}"></f:selectItems>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Cantidad"></p:outputLabel>
+                        <p:inputText value="#{detalleFacturaControl.cantidad}"></p:inputText>
+                        <p:commandButton value="Añadir Producto" action="#{detalleFacturaControl.agregarProducto()}" update="@form"></p:commandButton>
+                    </b:panelGrid>
+                </b:panel>
+
+                <b:panel title="Lista Productos">
+                    <p:dataTable value="#{detalleFacturaControl.listaDetalleFacturaTemporal}" var="producto">
+                        <p:column headerText="Nombre Producto">
+                            <p:outputLabel value="#{producto.idProducto.idBodega.nombreProducto}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Cantidad Producto">
+                            <p:outputLabel value="#{producto.cantidad}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Valor Inicial">
+                            <p:outputLabel value="#{producto.idProducto.precioUnitario}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Valor Final">
+                            <p:outputLabel value="#{producto.precioFinal}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Actualizar">
+                            <p:commandButton value="Actualizar" ></p:commandButton>
+                        </p:column>
+                    </p:dataTable> 
+                </b:panel>
+
+                <b:panel title="Pago">
+                    <p:dataTable value="#{detalleFacturaControl.cabeceraFactura}" var="pago">
+                        <p:column headerText="Subtotal">
+                            <p:outputLabel value="#{pago.subtotal}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="IVA">
+                            <p:outputLabel value="#{pago.iva}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Total">
+                            <p:outputLabel value="#{pago.total}"></p:outputLabel>
+                        </p:column>
+                    </p:dataTable> 
+                </b:panel>
+            </b:container>
+        </h:form>
+    </ui:define>
+</ui:composition>

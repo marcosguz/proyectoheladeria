@@ -1,0 +1,62 @@
+<ui:composition 
+    template="../template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:b="http://bootsfaces.net/ui">
+    <ui:define name="content">
+        <h:form id="fmrEmpleado">
+            <p:messages id="mensaje"></p:messages>
+            <b:panel id="bnlEmpleado" title="Nuevo Empleado">
+                <b:panelGrid columns="2">
+                    <p:outputLabel value="Cédula"></p:outputLabel>
+                    <p:inputText value="#{empleadoControl.empleado.idPersona.cedula}"></p:inputText>
+                    <p:outputLabel value="Nombre"></p:outputLabel>
+                    <p:inputText value="#{empleadoControl.empleado.idPersona.nombre}"></p:inputText>
+                    <p:outputLabel value="Apellido"></p:outputLabel>
+                    <p:inputText value="#{empleadoControl.empleado.idPersona.apellido}"></p:inputText>
+                    <p:outputLabel value="Email"></p:outputLabel>
+                    <p:inputText value="#{empleadoControl.empleado.idPersona.email}"></p:inputText>
+                    <p:outputLabel value="Teléfono"></p:outputLabel>
+                    <p:inputText value="#{empleadoControl.empleado.idPersona.telefono}"></p:inputText>
+                    <p:outputLabel value="Puesto Trabajo"></p:outputLabel>
+                    <p:selectOneMenu id="optionPuestoTrabajo" value="#{empleadoControl.idPuestoTrabajo}">
+                        <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                        <f:selectItems value="#{empleadoControl.selectPuestoTrabajo}" var="item" itemValue="#{item.value}" itemLabel="#{item.label}"></f:selectItems>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Horario Trabajo"></p:outputLabel>
+                    <p:calendar id="cldFechaInicio" value="#{empleadoControl.empleado.horarioTrabajo}" showOn="button" 
+                                mindate="today"
+                                    pattern="yyyy-mm-dd" />
+                    <p:outputLabel value="Estado"></p:outputLabel>
+                    <p:selectBooleanCheckbox value="#{empleadoControl.empleado.estadoEmpelado}"></p:selectBooleanCheckbox>
+                    <p:commandButton value="Guardar" action="#{empleadoControl.guardar()}" update="@form"></p:commandButton>
+                </b:panelGrid>
+            </b:panel>
+            <b:panel  title="Lista Empleados">
+                <p:dataTable value="#{empleadoControl.listaEmpleado}" var="empleado">
+                    <p:column headerText="Nombre">
+                        <p:outputLabel value="#{empleado.idPersona.nombre}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Apellido">
+                        <p:outputLabel value="#{empleado.idPersona.apellido}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Puesto Trabajo">
+                         <p:outputLabel value="#{empleado.idPuestoTrabajo.nombrePuestoTrabajo}"></p:outputLabel>
+                    </p:column>
+                     <p:column headerText="Horario Trabajo">
+                         <p:outputLabel value="#{empleado.horarioTrabajo}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Estado Empleado">
+                         <p:outputLabel value="#{empleado.estadoEmpelado}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Actualizar">
+                         <p:commandButton value="Actualizar" action="#{empleadoControl.actualizar(empleado)}" process="@this" update="@form"></p:commandButton>
+                    </p:column>
+                 </p:dataTable>
+            </b:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

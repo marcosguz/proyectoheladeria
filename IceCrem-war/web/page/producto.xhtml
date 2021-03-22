@@ -1,0 +1,70 @@
+<ui:composition 
+    template="../template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:b="http://bootsfaces.net/ui">
+    <ui:define name="content">
+        <h:form id="fmrProducto">
+            <p:messages id="mensaje"></p:messages>
+            <b:panel title="Nuevo Producto">
+                <b:panelGrid columns="2">
+                    <p:outputLabel value="Producto"></p:outputLabel>
+                    <b:selectOneMenu id="optionProducto" value="#{productoControl.idProductoBodega}">
+                        <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                        <f:selectItems value="#{productoControl.selectItemProductoBodega}" var="itemProducto" itemValue="#{itemProducto.value}" itemLabel="#{itemProducto.label}"></f:selectItems>
+                    </b:selectOneMenu>
+                    
+                    <p:outputLabel value="Tipo Producto"></p:outputLabel>
+                    <b:selectOneMenu id="optionTipoProducto" value="#{productoControl.idTipoProducto}">
+                        <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                        <f:selectItems value="#{productoControl.selectItemTipoProducto}" var="itemTipoProducto" itemValue="#{itemTipoProducto.value}" itemLabel="#{itemTipoProducto.label}"></f:selectItems>
+                    </b:selectOneMenu>
+                    
+                    <p:outputLabel value="Caracteristica"></p:outputLabel>
+                    <b:selectOneMenu id="optionCaracteristica" value="#{productoControl.idCaracteristica}">
+                        <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                        <f:selectItems value="#{productoControl.selectItemCaracteristica}" var="itemCaracteristica" itemValue="#{itemCaracteristica.value}" itemLabel="#{itemCaracteristica.label}"></f:selectItems>
+                    </b:selectOneMenu>
+                    
+                    <p:outputLabel value="Valor Unitario"></p:outputLabel>
+                    <p:inputText value="#{productoControl.producto.precioUnitario}"></p:inputText>
+                    <p:outputLabel value="Descripción"></p:outputLabel>
+                    <p:inputText value="#{productoControl.producto.descripcionProducto}"></p:inputText>
+                    
+                    <p:outputLabel value="Estado"></p:outputLabel>
+                    <p:selectBooleanCheckbox value="#{productoControl.producto.estadoProducto}"></p:selectBooleanCheckbox>
+                    
+                    <p:commandButton value="Guardar" action="#{productoControl.guardar()}" update="@form"></p:commandButton>
+                </b:panelGrid>
+            </b:panel>
+            <b:panel title="Lista Producto">
+                <p:dataTable value="#{productoControl.listaProducto}" var="producto">
+                    <p:column headerText="Producto">
+                        <p:outputLabel value="#{producto.idBodega.nombreProducto}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Tipo Producto">
+                        <p:outputLabel value="#{producto.idTipoProducto.nombreTipoProducto}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Caracteristica">
+                        <p:outputLabel value="#{producto.idCaracteristica.nombreCaracteristica}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Valor Unitario">
+                        <p:outputLabel value="#{producto.precioUnitario}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Descripción">
+                        <p:outputLabel value="#{producto.descripcionProducto}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Estado">
+                        <p:outputLabel value="#{producto.estadoProducto}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Actualizar">
+                        <p:commandButton value="Actualizar" action="#{productoControl.actualizar(producto)}" process="@this" update="@form"></p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </b:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

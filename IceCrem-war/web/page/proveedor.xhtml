@@ -1,0 +1,53 @@
+<ui:composition 
+    template="../template.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:b="http://bootsfaces.net/ui">
+    <ui:define name="content">
+        <h:form id="frmProveedor">
+            <p:messages id="mensaje"></p:messages>
+            <b:panel title="Nuevo Proveedor">
+                <b:panelGrid id="pnlProveedor" columns="2">
+                    <p:outputLabel value="Cédula"></p:outputLabel>
+                    <p:inputText value="#{proveedorControl.proveedor.idPersona.cedula}"></p:inputText>
+                    <p:outputLabel value="Nombre"></p:outputLabel>
+                    <p:inputText value="#{proveedorControl.proveedor.idPersona.nombre}"></p:inputText>
+                    <p:outputLabel value="Apellido"></p:outputLabel>
+                    <p:inputText value="#{proveedorControl.proveedor.idPersona.apellido}"></p:inputText>
+                    <p:outputLabel value="Email"></p:outputLabel>
+                    <p:inputText value="#{proveedorControl.proveedor.idPersona.email}"></p:inputText>
+                    <p:outputLabel value="Empresa"></p:outputLabel>
+                    <p:inputText value="#{proveedorControl.proveedor.empresa}"></p:inputText>
+                    <p:outputLabel value="Teléfono"></p:outputLabel>
+                    <p:inputText value="#{proveedorControl.proveedor.idPersona.telefono}"></p:inputText>
+                    <p:outputLabel value="Estado Proveedor"></p:outputLabel>
+                    <p:selectBooleanCheckbox value="#{proveedorControl.proveedor.estadoProveedor}"></p:selectBooleanCheckbox>
+                    
+                    <p:commandButton value="Guardar" action="#{proveedorControl.guardar()}" process="pnlProveedor" update="@form"></p:commandButton>
+                </b:panelGrid>
+            </b:panel>
+            <b:panel title="Lista Proveedores">
+                <p:dataTable value="#{proveedorControl.listaProveedor}" var="proveedor">
+                    <p:column headerText="Nombre">
+                        <p:outputLabel value="#{proveedor.idPersona.nombre}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Apellido">
+                        <p:outputLabel value="#{proveedor.idPersona.apellido}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Empresa">
+                        <p:outputLabel value="#{proveedor.empresa}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Estado Proveedor">
+                        <p:outputLabel value="#{proveedor.estadoProveedor}"></p:outputLabel>
+                    </p:column>
+                    <p:column headerText="Actualizar">
+                        <p:commandButton value="Actualizar" action="#{proveedorControl.actualizar(proveedor)}" process="@this" update="@form"></p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </b:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>
